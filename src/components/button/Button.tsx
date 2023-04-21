@@ -5,10 +5,11 @@ type ButtonParams = {
     text: string,
     size?: number,
     xPadding?: number,
-    yPadding?: number
+    yPadding?: number,
+    radius?: number,
 }
 
-function Button({text, size = 20, xPadding = 30, yPadding = 10} : ButtonParams)
+function Button({text, size = 20, xPadding = 50, yPadding = 10, radius = 25} : ButtonParams)
 {
     const StyledButton = styled.button`
         font-size: ${size};
@@ -17,7 +18,7 @@ function Button({text, size = 20, xPadding = 30, yPadding = 10} : ButtonParams)
         color: white;
         border-style: none;
         font-family: 'Inter';
-        border-radius: 12px;
+        border-radius: ${radius}px;
     `;
 
     return (
