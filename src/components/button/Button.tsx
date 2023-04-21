@@ -21,6 +21,7 @@ function Button({text, size = 20, xPadding = 50, yPadding = 10, radius = 25, ...
         font-family: 'Inter';
         border-radius: ${radius}px;
         ${props.flexible && 'width: 100%;'}
+        cursor: pointer;
     `;
 
     return (

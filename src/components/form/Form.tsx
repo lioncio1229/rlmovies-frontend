@@ -45,13 +45,30 @@ const Title = styled.h2`
     font-family: 'Inter';
 `;
 
-function Form()
+interface SignupData{
+    username: string,
+    password: string,
+    fullname: string,
+}
+
+interface SigninData{
+    username: string,
+    password: string,
+}
+
+interface Props{
+    title: string,
+    buttonName: string,
+    onSubmit?: (data: SignupData | SigninData) => void
+}
+
+function Form(props : Props)
 {
     return (
         <_Form>
             <Header>
                 <FontAwesomeIcon icon={faUser} style={{'color': 'white', 'position': "absolute", "left" : "25px", "fontSize" : "30px"}}/>
-                <Title>Signin</Title>
+                <Title>{props.title}</Title>
             </Header>
             <FormContent>
                 <InputWrapper>
@@ -61,7 +78,7 @@ function Form()
                     <Textfield flexible={true} xPadding={15} yPadding={12} placeholder="Password" type="password"/>
                 </InputWrapper>
                 <InputWrapper>
-                    <Button text="Signin" flexible={true}/>
+                    <Button text={props.buttonName} flexible={true}/>
                 </InputWrapper>
             </FormContent>
         </_Form>

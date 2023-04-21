@@ -3,7 +3,7 @@ import Form from "../components/form/Form";
 function Signin()
 {
     return (<div>
-        <Form/>
+        <Form title="Signin" buttonName="Sigin"/>
     </div>);
 }
 
