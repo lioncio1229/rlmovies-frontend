@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Button from "../button/Button";
 import Textfield from "../textfield/Textfield";
 import {theme} from '../../../config.json';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const _Form = styled.div`
     display: flex;
@@ -24,6 +26,7 @@ const Header = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 
 const FormContent = styled.div`
@@ -47,6 +50,7 @@ function Form()
     return (
         <_Form>
             <Header>
+                <FontAwesomeIcon icon={faUser} style={{'color': 'white', 'position': "absolute", "left" : "25px", "fontSize" : "30px"}}/>
                 <Title>Signin</Title>
             </Header>
             <FormContent>
