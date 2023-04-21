@@ -6,6 +6,7 @@ interface Props {
     radius?: number,
     type?: string,
     flexible?: boolean,
+    placeholder?: string,
     onChange?: (value: string) => void,
 }
 
@@ -20,7 +21,7 @@ function Textfield({xPadding = 10, yPadding = 10, type='string', radius = 25, ..
         ${props.flexible && 'width: 100%;'}
         box-sizing: border-box;
     `;
-    return <_input type={type} onChange={(e) => props.onChange?.(e.target.value)}/>
+    return <_input type={type} onChange={(e) => props.onChange?.(e.target.value)} placeholder={props.placeholder}/>
 }
 
 export default Textfield;
