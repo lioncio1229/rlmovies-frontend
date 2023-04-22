@@ -1,7 +1,9 @@
 import styled from "styled-components";
-import Button from "../button/Button";
-import Textfield from "../textfield/Textfield";
-import {theme} from '../../../config.json';
+import {Link} from "react-router-dom";
+import Button from "./Button";
+import Textfield from "./Textfield";
+import Checkbox from "./Checkbox";
+import {theme, form} from '../../config.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
@@ -13,6 +15,7 @@ const _Form = styled.div`
     flex-direction: column;
     box-shadow: 0 4px 4px #a8a8a8;
     border-radius: 20px;
+    font-family: 'Inter';
 `;
 
 const Header = styled.div`
@@ -31,11 +34,11 @@ const Header = styled.div`
 
 const FormContent = styled.div`
     width: 80%;
-    margin-bottom: 80px;
+    margin-bottom: 60px;
 `;
 
 const InputWrapper = styled.div`
-  padding-bottom: 30px;
+  padding-bottom: 20px;
   width: 100%;
 `;
 
@@ -45,30 +48,24 @@ const Title = styled.h2`
     font-family: 'Inter';
 `;
 
-interface SignupData{
-    username: string,
-    password: string,
-    fullname: string,
-}
-
-interface SigninData{
-    username: string,
-    password: string,
-}
+const OtherAction = styled.div`
+  font-size: 12px;
+  color: #747474;
+  display: flex;
+  justify-content: end;
+`;
 
 interface Props{
-    title: string,
-    buttonName: string,
-    onSubmit?: (data: SignupData | SigninData) => void
+    action: 'signin' | 'signup',
 }
 
-function Form(props : Props)
+function Form({action} : Props)
 {
     return (
         <_Form>
             <Header>
                 <FontAwesomeIcon icon={faUser} style={{'color': 'white', 'position': "absolute", "left" : "25px", "fontSize" : "30px"}}/>
-                <Title>{props.title}</Title>
+                <Title>{form[action].title}</Title>
             </Header>
             <FormContent>
                 <InputWrapper>
@@ -77,8 +74,28 @@ function Form(props : Props)
                 <InputWrapper>
                     <Textfield flexible={true} xPadding={15} yPadding={12} placeholder="Password" type="password"/>
                 </InputWrapper>
+               {
+                action === 'signup' && 
                 <InputWrapper>
-                    <Button text={props.buttonName} flexible={true}/>
+                    <Textfield flexible={true} xPadding={15} yPadding={12} placeholder="Username"/>
+                </InputWrapper>
+               }
+                <InputWrapper>
+                    <Button text={form[action].buttonTitle} flexible={true}/>
+               </InputWrapper>
+               {
+                    action === 'signup' && <InputWrapper> <Checkbox title="Administrator"/> </InputWrapper>
+               }
+                <InputWrapper>
+                    <OtherAction>
+                        <div>
+                            <span>{form[action].otherActionName}</span>
+                            {
+                                form[action].otherActionLink && form[action].otherActionLinkName && 
+                                <Link to={form[action].otherActionLink} style={{ color: theme.primary }}>{' ' + form[action].otherActionLinkName}</Link>
+                            }
+                        </div>
+                    </OtherAction>
                 </InputWrapper>
             </FormContent>
         </_Form>

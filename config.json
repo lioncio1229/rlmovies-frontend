@@ -1,5 +1,21 @@
 {
     "theme": {
         "primary": "#275CCC"
+    },
+    "form": {
+        "signin": {
+            "title": "Signin",
+            "buttonTitle": "Signin",
+            "otherActionName": "Don't have an account?",
+            "otherActionLinkName": "signup here",
+            "otherActionLink": "/signup"
+        },
+        "signup": {
+            "title": "Signup",
+            "buttonTitle": "Signup",
+            "otherActionName": "Have an account?",
+            "otherActionLinkName": "signin here",
+            "otherActionLink": "/signin"
+        }
     }
 }

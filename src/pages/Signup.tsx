@@ -9,12 +9,12 @@ const FormWrapper = styled.div`
     height: 90vh;
 `;
 
-function Signin()
+function Signup()
 {
     return (
     <FormWrapper>
-        <Form action="signin"/>
+        <Form action="signup"/>
     </FormWrapper>);
 }
 
-export default Signin;
+export default Signup;
