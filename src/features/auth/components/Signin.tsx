@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Form from "../components/Form";
+import Form from "../common/Form";
 
 
 const FormWrapper = styled.div`
@@ -9,12 +9,12 @@ const FormWrapper = styled.div`
     height: 90vh;
 `;
 
-function Signup()
+function Signin()
 {
     return (
     <FormWrapper>
-        <Form action="signup"/>
+        <Form action="signin"/>
     </FormWrapper>);
 }
 
-export default Signup;
+export default Signin;

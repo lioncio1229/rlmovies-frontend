@@ -1,8 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Theme from "./Theme";
-import Signin from "./pages/Signin";
-import Signup from "./pages/Signup";
-import AdminDashboard from "./pages/admin-dashboard/AdminDashboard";
+import { Signin, Signup } from "./features/auth";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const router = createBrowserRouter([
     {

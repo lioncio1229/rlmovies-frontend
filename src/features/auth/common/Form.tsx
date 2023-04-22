@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import {Link} from "react-router-dom";
-import Button from "./Button";
-import Textfield from "./Textfield";
-import Checkbox from "./Checkbox";
-import {form} from '../../config.json';
+import Button from "../../../components/Button";
+import Textfield from "../../../components/Textfield";
+import Checkbox from "../../../components/Checkbox";
+import {form} from '../../../../config.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
