@@ -10,18 +10,24 @@ interface Props {
     onChange?: (value: string) => void,
 }
 
-function Textfield({xPadding = 10, yPadding = 10, type='string', radius = 25, ...props} : Props)
+const _input = styled.input.attrs((props : Props | any) => ({
+    xPadding: 10,
+    yPadding: 10,
+    radius: 25,
+    flexible: props.flexible
+})) `
+    padding: ${props => props.yPadding}px ${props => props.xPadding}px;
+    outline-style: none;
+    border-radius: ${props => props.radius}px;
+    border-style: none;
+    background-color: ${props => props.theme.colors.secondary};
+    ${props => props.flexible && 'width: 100%;'}
+    box-sizing: border-box;
+`;
+
+function Textfield(props : Props)
 {
-    const _input = styled.input`
-        padding: ${yPadding}px ${xPadding}px;
-        outline-style: none;
-        border-radius: ${radius}px;
-        border-style: none;
-        background-color: #EBEBEB;
-        ${props.flexible && 'width: 100%;'}
-        box-sizing: border-box;
-    `;
-    return <_input type={type} onChange={(e) => props.onChange?.(e.target.value)} placeholder={props.placeholder}/>
+    return <_input type={props.type} {...props}  onChange={(e) => props.onChange?.(e.target.value)} placeholder={props.placeholder}/>
 }
 
 export default Textfield;

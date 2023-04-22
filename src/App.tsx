@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Theme from "./Theme";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 
@@ -17,9 +18,9 @@ const router = createBrowserRouter([
 function App()
 {
     return (
-        <>
+        <Theme>
             <RouterProvider router={router} />
-        </>
+        </Theme>
     )
 }
 
