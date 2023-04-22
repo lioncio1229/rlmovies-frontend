@@ -1,6 +1,5 @@
 import React from 'react';
-import { ThemeProvider } from "styled-components";
-
+import { ThemeProvider, createGlobalStyle } from "styled-components";
 
 interface Colors {
     primary: string,
@@ -66,6 +65,14 @@ const theme : Theme = {
     }
 };
 
+const GlobalStyle = createGlobalStyle`
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter'
+    }
+`
+
 interface Props {
     children: React.ReactNode;
 }
@@ -73,6 +80,7 @@ interface Props {
 export default function({children} : Props)
 {
     return <ThemeProvider theme={theme}>
+        <GlobalStyle />
         {children}
     </ThemeProvider>
 }

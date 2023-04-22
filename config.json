@@ -1,7 +1,5 @@
 {
-    "theme": {
-        "primary": "#275CCC"
-    },
+    "title": "RL Movies",
     "form": {
         "signin": {
             "title": "Signin",

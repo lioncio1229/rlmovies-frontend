@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import Button from "./Button";
 import Textfield from "./Textfield";
 import Checkbox from "./Checkbox";
-import {theme, form} from '../../config.json';
+import {form} from '../../config.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
@@ -92,7 +92,7 @@ function Form({action} : Props)
                             <span>{form[action].otherActionName}</span>
                             {
                                 form[action].otherActionLink && form[action].otherActionLinkName && 
-                                <Link to={form[action].otherActionLink} style={{ color: theme.primary }}>{' ' + form[action].otherActionLinkName}</Link>
+                                <Link to={form[action].otherActionLink}>{' ' + form[action].otherActionLinkName}</Link>
                             }
                         </div>
                     </OtherAction>
