@@ -36,6 +36,8 @@ const Nav = styled.div`
     height: 100%;
     display: flex;
     color: cadetblue;
+    display: flex;
+    align-items: center;
 `;
 
 const NavButton = styled.div`
