@@ -78,7 +78,7 @@ export default function()
                   <Cell>Action</Cell>
                 </HeaderRow>
                 {
-                  Array(20).fill(10).map((_) => (
+                  Array(5).fill(10).map((_) => (
                     <Row>
                       <Cell>Zilzo zilzo zilzo</Cell>
                       <Cell>Name</Cell>
