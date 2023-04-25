@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-type ButtonParams = {
-    text: string,
+interface Props {
+    text?: string,
     size?: number,
     xPadding?: number,
     yPadding?: number,
@@ -9,20 +9,10 @@ type ButtonParams = {
     flexible?: boolean,
 }
 
-const StyledButton = styled.button.attrs((props : ButtonParams | any) => {
-    const {theme} = props;
-    return {
-        size: theme.fontSizes.large,
-        xPadding: 50,
-        yPadding: 10,
-        radius: 25,
-        flexible: props.flexible,
-    };
-}
-) `
-    font-size: ${props => props.theme.size}px;
+const StyledButton = styled.button<Props>`
+    font-size: ${props => props.size || props.theme.fontSizes.large}px;
     background-color: ${props => props.theme.colors.primary};
-    padding: ${props => props.yPadding}px ${props => props.xPadding}px;
+    padding: ${props => props.yPadding || 0}px ${props => props.xPadding || 0}px;
     color: white;
     border-style: none;
     font-family: 'Inter';
@@ -31,9 +21,14 @@ const StyledButton = styled.button.attrs((props : ButtonParams | any) => {
     cursor: pointer;
 `;
 
-function Button(props : ButtonParams)
-{
+StyledButton.defaultProps = {
+    xPadding: 50,
+    yPadding: 10,
+    radius: 25,
+}
 
+function Button(props : Props)
+{
     return (
         <StyledButton {...props} > {props.text} </StyledButton>
     )

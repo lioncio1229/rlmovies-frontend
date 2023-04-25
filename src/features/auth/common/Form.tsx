@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import {Link} from "react-router-dom";
-import Button from "../../../components/Button";
-import Textfield from "../../../components/Textfield";
-import Checkbox from "../../../components/Checkbox";
+import Button from "../../../components/ui/Button";
+import Textfield from "../../../components/ui/Textfield";
+import Checkbox from "../../../components/ui/Checkbox";
 import {form} from '../../../../config.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +13,7 @@ const _Form = styled.div`
     align-items: center;
     width: 300px;
     flex-direction: column;
-    box-shadow: 0 4px 4px #a8a8a8;
+    box-shadow: ${props => props.theme.shadow.medium};
     border-radius: 20px;
     font-family: 'Inter';
 `;

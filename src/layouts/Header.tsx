@@ -52,7 +52,7 @@ const CustomLink2 = styled(Link)`
     color: ${props => props.theme.colors.primary};
     background-color: white;
     text-decoration: none;
-    padding: 20px;
+    padding: 21px;
 `;
 
 export default function(props: Props)

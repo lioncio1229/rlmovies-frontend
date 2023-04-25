@@ -9,13 +9,14 @@ interface Colors {
     danger: string,
     info: string,
     light: string,
-    dark: string
+    dark: string,
+    background: string,
 }
 
-interface Fontsize {
-    small: string,
-    medium: string,
-    large: string
+interface Size {
+    small?: string,
+    medium?: string,
+    large?: string
 }
 
 interface FontWeights {
@@ -24,17 +25,13 @@ interface FontWeights {
     bold: number,
 }
 
-interface Spacing {
-    small: string,
-    medium: string,
-    large: string,
-}
 
 interface Theme {
     colors: Colors,
-    fontSizes: Fontsize,
+    fontSizes: Size,
     fontWeights: FontWeights,
-    spacing: Spacing,
+    spacing: Size,
+    shadow: Size,
 }
 
 const theme : Theme = {
@@ -46,7 +43,8 @@ const theme : Theme = {
       danger: '#dc3545',
       info: '#17a2b8',
       light: '#f8f9fa',
-      dark: '#343a40'
+      dark: '#343a40',
+      background: '#F4F6F8'
     },
     fontSizes: {
       small: '14px',
@@ -62,6 +60,9 @@ const theme : Theme = {
       small: '8px',
       medium: '16px',
       large: '24px'
+    },
+    shadow: {
+        medium: '0 4px 4px #a8a8a8'
     }
 };
 
@@ -69,7 +70,12 @@ const GlobalStyle = createGlobalStyle`
     body {
         margin: 0;
         padding: 0;
-        font-family: 'Inter'
+        font-family: 'Inter';
+        background-color: ${theme.colors.background};
+    }
+
+    #root {
+        height: 100vh;
     }
 `
 
