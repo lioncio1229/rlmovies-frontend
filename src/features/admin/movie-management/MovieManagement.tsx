@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import Button from "../../../components/ui/Button";
+import DotsButton from "../../../components/ui/DotsButton";
 
 
 const Center = styled.div`
@@ -45,7 +46,6 @@ const List = styled.div`
 
 const Cell = styled.div`
     width: 100%;
-    flex-grow: 1;
 `;
 
 const Row = styled.div`
@@ -62,6 +62,14 @@ const HeaderRow = styled(Row)`
   background-color: white;
 `
 
+const Dots = styled(Cell)`
+    flex-shrink: 0;
+    width: 50px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+`;
+
 export default function()
 {
     return (
@@ -76,6 +84,7 @@ export default function()
                   <Cell>Name</Cell>
                   <Cell>Price</Cell>
                   <Cell>Action</Cell>
+                  <Dots></Dots>
                 </HeaderRow>
                 {
                   Array(5).fill(10).map((_) => (
@@ -84,6 +93,9 @@ export default function()
                       <Cell>Name</Cell>
                       <Cell>Price</Cell>
                       <Cell>Action</Cell>
+                      <Dots>
+                        <DotsButton />
+                      </Dots>
                     </Row>
                   ))
                 }
