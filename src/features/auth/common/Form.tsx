@@ -81,7 +81,7 @@ function Form({action} : Props)
                 </InputWrapper>
                }
                 <InputWrapper>
-                    <Button text={form[action].buttonTitle} flexible={true}/>
+                    <Button flexible={true}>{form[action].buttonTitle}</Button>
                </InputWrapper>
                {
                     action === 'signup' && <InputWrapper> <Checkbox title="Administrator"/> </InputWrapper>

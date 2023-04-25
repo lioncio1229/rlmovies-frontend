@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import Button from "../../../components/ui/Button";
 import DotsButton from "../../../components/ui/DotsButton";
-
+import InfoEdit from "./InfoEdit";
 
 const Center = styled.div`
   display: flex;
@@ -73,34 +73,37 @@ const Dots = styled(Cell)`
 export default function()
 {
     return (
-      <Container>
-        <Paper>
-            <Top>
-              <Button text="Add" radius={0}/>
-            </Top>
-            <List>
-                <HeaderRow>
-                  <Cell>Thumbnail</Cell>
-                  <Cell>Name</Cell>
-                  <Cell>Price</Cell>
-                  <Cell>Action</Cell>
-                  <Dots></Dots>
-                </HeaderRow>
-                {
-                  Array(5).fill(10).map((_) => (
-                    <Row>
-                      <Cell>Zilzo zilzo zilzo</Cell>
-                      <Cell>Name</Cell>
-                      <Cell>Price</Cell>
-                      <Cell>Action</Cell>
-                      <Dots>
-                        <DotsButton />
-                      </Dots>
-                    </Row>
-                  ))
-                }
-            </List>
-        </Paper>
-      </Container>
+      <>
+        <Container>
+          <Paper>
+              <Top>
+                <Button radius={0}>Add</Button>
+              </Top>
+              <List>
+                  <HeaderRow>
+                    <Cell>Thumbnail</Cell>
+                    <Cell>Name</Cell>
+                    <Cell>Price</Cell>
+                    <Cell>Action</Cell>
+                    <Dots></Dots>
+                  </HeaderRow>
+                  {
+                    Array(5).fill(10).map((_) => (
+                      <Row>
+                        <Cell>Zilzo zilzo zilzo</Cell>
+                        <Cell>Name</Cell>
+                        <Cell>Price</Cell>
+                        <Cell>Action</Cell>
+                        <Dots>
+                          <DotsButton />
+                        </Dots>
+                      </Row>
+                    ))
+                  }
+              </List>
+          </Paper>
+        </Container>
+        <InfoEdit />
+      </>
     )
 }

@@ -1,7 +1,8 @@
 import styled from "styled-components"
 
 interface Props {
-    size?: number
+    size?: number,
+    onClick?: (input: object) => void
 }
 
 const Button = styled.svg`

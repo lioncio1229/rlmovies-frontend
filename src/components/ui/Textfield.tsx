@@ -1,21 +1,19 @@
 import styled from "styled-components";
 
-interface Props {
+interface InputProps {
     xPadding?: number,
     yPadding?: number,
     radius?: number,
-    type?: string,
     flexible?: boolean,
-    placeholder?: string,
-    onChange?: (value: string) => void,
 }
 
-const _input = styled.input.attrs((props : Props | any) => ({
-    xPadding: 10,
-    yPadding: 10,
-    radius: 25,
-    flexible: props.flexible
-})) `
+interface Props extends InputProps{
+    type?: string,
+    placeholder?: string,
+    handleInputChange?: (value: string) => void,
+}
+
+const _input = styled.input<InputProps>`
     padding: ${props => props.yPadding}px ${props => props.xPadding}px;
     outline-style: none;
     border-radius: ${props => props.radius}px;
@@ -25,9 +23,16 @@ const _input = styled.input.attrs((props : Props | any) => ({
     box-sizing: border-box;
 `;
 
+_input.defaultProps = {
+    xPadding: 10,
+    yPadding: 10,
+    radius: 25,
+    flexible: false,
+}
+
 function Textfield(props : Props)
 {
-    return <_input type={props.type} {...props}  onChange={(e) => props.onChange?.(e.target.value)} placeholder={props.placeholder}/>
+    return <_input type={props.type} {...props} onChange={(e : React.ChangeEvent<HTMLInputElement>) => props.handleInputChange?.(e.target.value)} placeholder={props.placeholder}/>
 }
 
 export default Textfield;

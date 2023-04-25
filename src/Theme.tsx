@@ -11,6 +11,7 @@ interface Colors {
     light: string,
     dark: string,
     background: string,
+    text: string,
 }
 
 interface Size {
@@ -44,7 +45,8 @@ const theme : Theme = {
       info: '#17a2b8',
       light: '#f8f9fa',
       dark: '#343a40',
-      background: '#F4F6F8'
+      background: '#F4F6F8',
+      text: "#ACA6A6",
     },
     fontSizes: {
       small: '14px',
