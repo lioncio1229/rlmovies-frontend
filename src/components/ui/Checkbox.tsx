@@ -1,24 +1,25 @@
 import styled from "styled-components";
 
 
-const Wrapper = styled.div`
+const StyledCheckbox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
 
-const Check = styled.input`
+  p{
+    margin: 0;
+    font-size: 14px;
+    color: ${prop => prop.theme.colors.text}
+  }
+
+  input{
     color: white;
     cursor: pointer;
     width: 20px;
     height: 20px;
+    outline-color: blue;
+  }
 `;
-
-const Text = styled.p`
-    margin: 0;
-    font-size: 14px;
-    color: grey;
-`
 
 interface Props {
     title?: string
@@ -27,10 +28,10 @@ interface Props {
 function Checkbox(props: Props)
 {
     return (
-        <Wrapper>
-           <Text>{props.title}</Text>
-           <Check type="checkbox"/> 
-        </Wrapper>
+        <StyledCheckbox>
+           <p>{props.title}</p>
+           <input type="checkbox"/> 
+        </StyledCheckbox>
     );
 }
 

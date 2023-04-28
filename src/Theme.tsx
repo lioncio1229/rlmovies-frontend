@@ -46,7 +46,7 @@ const theme : Theme = {
       light: '#f8f9fa',
       dark: '#343a40',
       background: '#F4F6F8',
-      text: "#ACA6A6",
+      text: "#969595",
     },
     fontSizes: {
       small: '14px',

@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 
@@ -10,7 +11,7 @@ interface StyledButtonProps {
 }
 
 interface Props extends StyledButtonProps {
-    children?: any,
+    children?: React.ReactNode,
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
@@ -31,7 +32,7 @@ StyledButton.defaultProps = {
     radius: 25,
 }
 
-function Button(props : Props)
+function Button(props : Props) : JSX.Element
 {
     return (
         <StyledButton {...props} > {props.children} </StyledButton>
