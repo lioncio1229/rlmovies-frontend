@@ -71,16 +71,17 @@ const Dots = styled(Cell)`
 `;
 
 type Props = {
-  movies?: MovieInfo[]
+  movies?: MovieInfo[],
+  onAddClick?: () => void
 }
 
-export default function({movies} : Props) : JSX.Element
+export default function({movies, onAddClick} : Props) : JSX.Element
 {
     return (
         <Container>
           <Paper>
               <Top>
-                <Button radius={0}>Add</Button>
+                <Button radius={0} onClick={onAddClick}>Add</Button>
               </Top>
               <List>
                   <HeaderRow>

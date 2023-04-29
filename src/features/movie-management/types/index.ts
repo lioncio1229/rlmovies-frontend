@@ -5,5 +5,5 @@ export type MovieInfo = {
     price: number,
     quantity: number,
     rentalExpiration: string,
-    _id: string,
+    _id?: string,
 }

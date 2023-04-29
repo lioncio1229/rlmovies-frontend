@@ -7,7 +7,7 @@ export const endpoints = {
         signout: '/auth/signout',
     },
     adminMovies: {
-        getMovies: '/movies',
+        movies: '/movies',
     }
 }
 

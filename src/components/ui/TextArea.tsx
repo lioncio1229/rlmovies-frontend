@@ -7,7 +7,7 @@ interface TextAreaProps {
 
 interface Props extends TextAreaProps {
     rows?: number,
-    handleChange?: (input: object) => void
+    handleChange?: (input: string) => void
 }
 
 const TextArea = styled.textarea<TextAreaProps>`
@@ -25,9 +25,9 @@ TextArea.defaultProps = {
     radius: 10,
 }
 
-export default function({radius, rows = 5}: Props) : JSX.Element
+export default function({radius, rows = 5, handleChange}: Props) : JSX.Element
 {
     return (
-        <TextArea radius={radius} rows={rows}></TextArea>
-    )
+        <TextArea radius={radius} rows={rows} onChange={(e) => handleChange?.(e.target.value)}></TextArea>
+    );
 }

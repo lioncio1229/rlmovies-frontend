@@ -4,12 +4,13 @@ import { MovieInfo } from "../types";
 
 
 export interface MoviesState {
-    movies: MovieInfo[]
+    movies: MovieInfo[],
+    isEditorOpen: boolean,
 }
 
-
 const initialState : MoviesState = {
-    movies: []
+    movies: [],
+    isEditorOpen: false,
 }
 
 export const moviesSlice = createSlice({
@@ -18,11 +19,17 @@ export const moviesSlice = createSlice({
     reducers: {
         setMovies: (state, action: PayloadAction<MovieInfo[]>) => {
             state.movies = action.payload;
+        },
+        addMovie: (state, action: PayloadAction<MovieInfo>) => {
+            state.movies.push(action.payload);
+        },
+        setEditorOpen: (state, action: PayloadAction<boolean>) => {
+            state.isEditorOpen = action.payload;
         }
     }
 });
 
 
-export const { setMovies } = moviesSlice.actions;
+export const { setMovies, addMovie, setEditorOpen } = moviesSlice.actions;
 
 export default moviesSlice.reducer;
