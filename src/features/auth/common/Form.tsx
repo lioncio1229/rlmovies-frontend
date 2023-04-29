@@ -6,6 +6,7 @@ import Checkbox from "../../../components/ui/Checkbox";
 import {form} from '../../../../config.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { useState } from "react";
 
 const _Form = styled.div`
     display: flex;
@@ -55,12 +56,18 @@ const OtherAction = styled.div`
   justify-content: end;
 `;
 
-interface Props{
+type Props = {
     action: 'signin' | 'signup',
+    onSignin?: (username: string, password: string) => void,
+    onSignup?: (username: string, password: string, fullname: string) => void,
 }
 
-function Form({action} : Props)
+function Form({action, onSignin, onSignup} : Props)
 {
+    const [username, setUsername] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [fullname, setFullname] = useState<string>('');
+
     return (
         <_Form>
             <Header>
@@ -69,19 +76,19 @@ function Form({action} : Props)
             </Header>
             <FormContent>
                 <InputWrapper>
-                    <Textfield flexible={true} xPadding={15} yPadding={12} placeholder="Username"/>
+                    <Textfield flexible={true} xPadding={15} yPadding={12} placeholder="Username" handleInputChange={val => setUsername(val)}/>
                 </InputWrapper>
                 <InputWrapper>
-                    <Textfield flexible={true} xPadding={15} yPadding={12} placeholder="Password" type="password"/>
+                    <Textfield flexible={true} xPadding={15} yPadding={12} placeholder="Password" type="password" handleInputChange={val => setPassword(val)}/>
                 </InputWrapper>
                {
                 action === 'signup' && 
                 <InputWrapper>
-                    <Textfield flexible={true} xPadding={15} yPadding={12} placeholder="Username"/>
+                    <Textfield flexible={true} xPadding={15} yPadding={12} placeholder="Username" handleInputChange={val => setFullname(val)}/>
                 </InputWrapper>
                }
                 <InputWrapper>
-                    <Button flexible={true}>{form[action].buttonTitle}</Button>
+                    <Button flexible={true} onClick={() => action === "signin" ? onSignin?.(username, password) : onSignup?.(username, password, fullname)}>{form[action].buttonTitle}</Button>
                </InputWrapper>
                {
                     action === 'signup' && <InputWrapper> <Checkbox title="Administrator"/> </InputWrapper>

@@ -12,6 +12,7 @@ interface StyledButtonProps {
 
 interface Props extends StyledButtonProps {
     children?: React.ReactNode,
+    onClick?: () => void,
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
@@ -35,7 +36,7 @@ StyledButton.defaultProps = {
 function Button(props : Props) : JSX.Element
 {
     return (
-        <StyledButton {...props} > {props.children} </StyledButton>
+        <StyledButton {...props} onClick={props.onClick} > {props.children} </StyledButton>
     )
 }
 
