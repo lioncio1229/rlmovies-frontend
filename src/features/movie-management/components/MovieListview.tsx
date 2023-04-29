@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import Button from "../../../components/ui/Button";
 import DotsButton from "../../../components/ui/DotsButton";
-import InfoEdit from "./InfoEdit";
+import { MovieInfo } from "../types";
 
 const Center = styled.div`
   display: flex;
@@ -70,10 +70,13 @@ const Dots = styled(Cell)`
     align-items: center;
 `;
 
-export default function()
+type Props = {
+  movies?: MovieInfo[]
+}
+
+export default function({movies} : Props) : JSX.Element
 {
     return (
-      <>
         <Container>
           <Paper>
               <Top>
@@ -82,18 +85,18 @@ export default function()
               <List>
                   <HeaderRow>
                     <Cell>Thumbnail</Cell>
-                    <Cell>Name</Cell>
+                    <Cell>Title</Cell>
                     <Cell>Price</Cell>
                     <Cell>Action</Cell>
                     <Dots></Dots>
                   </HeaderRow>
                   {
-                    Array(5).fill(10).map((_) => (
-                      <Row>
-                        <Cell>Zilzo zilzo zilzo</Cell>
-                        <Cell>Name</Cell>
-                        <Cell>Price</Cell>
-                        <Cell>Action</Cell>
+                    movies && movies.map((movie, i) => (
+                      <Row key={i}>
+                        <Cell>{movie.title}</Cell>
+                        <Cell>{movie.price}</Cell>
+                        <Cell>{movie.quantity}</Cell>
+                        <Cell>{movie.rentalExpiration}</Cell>
                         <Dots>
                           <DotsButton />
                         </Dots>
@@ -103,7 +106,5 @@ export default function()
               </List>
           </Paper>
         </Container>
-        <InfoEdit />
-      </>
-    )
+    );
 }

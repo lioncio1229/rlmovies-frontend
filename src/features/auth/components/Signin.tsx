@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import Form from "../common/Form";
 import { useNavigate } from "react-router-dom";
-
+import axios, {endpoints} from "../../../api/axios";
+import { encrypt } from "../../../utils/crypto";
 
 const FormWrapper = styled.div`
     display: flex;
@@ -13,9 +14,15 @@ const FormWrapper = styled.div`
 function Signin()
 {
     const navigate = useNavigate();
+    
     const handleSignin = (username: string, password: string) : void => {
         console.log(username + ' ' + password);
-        navigate('/admin-movies');
+        axios.post(endpoints.auth.signin, {
+            username,
+            password: encrypt(password),
+        }).then(res => {
+            navigate('/admin-movies');
+        });
     }
 
     return (

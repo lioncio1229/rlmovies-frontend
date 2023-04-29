@@ -67,8 +67,8 @@ export default function(props: Props)
                 </Title>
                 <Nav>
                     {
-                        props.navigations && props.navigations.map(item => (
-                            <NavButton>
+                        props.navigations && props.navigations.map((item, i) => (
+                            <NavButton key={i}>
                                 {
                                     item.name === props.navName ? 
                                     <CustomLink2 to={item.path}>{item.name}</CustomLink2> :

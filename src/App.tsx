@@ -1,7 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Theme from "./Theme";
+import { Provider } from "react-redux";
+import { store } from './store';
 import { Signin, Signup } from "./features/auth";
 import AdminDashboard from "./pages/AdminMovieDashboard";
+
 
 const router = createBrowserRouter([
     {
@@ -22,7 +25,9 @@ function App()
 {
     return (
         <Theme>
-            <RouterProvider router={router} />
+            <Provider store={store}>
+                <RouterProvider router={router} />
+            </Provider>
         </Theme>
     )
 }

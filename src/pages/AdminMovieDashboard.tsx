@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Header from "../layouts/Header";
-import { MovieManagement } from "../features/admin/movie-management";
+import MovieManagement from "../features/movie-management";
 
 const Wrapper = styled.div`
     display: flex;
