@@ -80,7 +80,7 @@ export default function(){
         .then(res => {
             if(res.statusText === 'OK' && movie)
             {
-                movieCopy._id = movie._id;
+                movieCopy._id = res.data;
                 dispatch(addMovie(movieCopy as MovieInfo));
                 handleOnClose();
             }
