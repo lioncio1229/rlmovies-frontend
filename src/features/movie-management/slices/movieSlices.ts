@@ -49,6 +49,6 @@ export const moviesSlice = createSlice({
 });
 
 
-export const { setMovies, addMovie, setEditorOpen, updateInfoEditor, clearInfoEditor } = moviesSlice.actions;
+export const { setMovies, addMovie, updateMovie, setEditorOpen, updateInfoEditor, clearInfoEditor } = moviesSlice.actions;
 
 export default moviesSlice.reducer;

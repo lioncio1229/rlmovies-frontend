@@ -1,10 +1,17 @@
 import type { RootState } from "../../store";
 import { useSelector, useDispatch } from "react-redux";
-import { setMovies, setEditorOpen, addMovie, updateInfoEditor, clearInfoEditor } from "./slices/movieSlices";
+import {
+  setMovies,
+  setEditorOpen,
+  addMovie,
+  updateInfoEditor,
+  clearInfoEditor,
+  updateMovie,
+} from "./slices/movieSlices";
 
 import MovieListview from "./components/MovieListview";
 import InfoEdit from "./components/InfoEdit";
-import { MovieInfo, InputEvents } from "./types";
+import { MovieInfo } from "./types";
 
 import axios, {endpoints} from "../../api/axios";
 import { useEffect } from "react";
@@ -41,6 +48,8 @@ export default function(){
     }
 
     const handleInfoSubmit = (movie : MovieInfo) => {
+        const _movie : MovieInfo | undefined = movies.find(v => v._id === movie._id);
+        
         const movieCopy : { [key: string]: string | number } = {
             title: movie.title,
             description: movie.description,
@@ -48,13 +57,31 @@ export default function(){
             price: movie.price,
             rentalExpiration: movie.rentalExpiration,
         };
+
+        if(_movie)
+        {
+            axios.put(endpoints.adminMovies.movies + '/' + _movie._id, movieCopy)
+            .then(res => {
+                if(res.statusText === 'OK' && movie)
+                {
+                    movieCopy._id = movie._id;
+                    dispatch(updateMovie(movieCopy as MovieInfo));
+                    handleOnClose();
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                navigate('/signin');
+            })
+            return;
+        }
+
         axios.post(endpoints.adminMovies.movies, movieCopy)
         .then(res => {
             if(res.statusText === 'OK' && movie)
             {
-                movieCopy._id = res.data;
+                movieCopy._id = movie._id;
                 dispatch(addMovie(movieCopy as MovieInfo));
-                dispatch(clearInfoEditor());
                 handleOnClose();
             }
         })
@@ -68,10 +95,12 @@ export default function(){
         if(!id) return;
 
         dispatch(setEditorOpen(true));
-        
+        const movie = movies.find(movie => movie._id === id);
+        movie && dispatch(updateInfoEditor(movie));
     }
 
     const handleOnClose = () => {
+        dispatch(clearInfoEditor());
         dispatch(setEditorOpen(false));
     }
 
