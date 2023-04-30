@@ -4,8 +4,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Textfield from "../../../components/ui/Textfield";
 import TextArea from "../../../components/ui/TextArea";
 import Button from "../../../components/ui/Button";
-import { useState } from 'react';
-import { MovieInfo } from "../types";
+import { MovieInfo, InputEvents } from "../types";
 
 const Background = styled.div`
   background-color: white;
@@ -57,19 +56,15 @@ const ButtonContainer = styled.div`
     margin: 14px 0;
 `;
 
-
 type Props = {
     onOk?: (v : MovieInfo) => void,
     onClose?: () => void,
+    values: MovieInfo,
+    inputEvents?: InputEvents,
 }
 
-export default function InfoEdit({onOk, onClose} : Props) : JSX.Element {
-    const [title, setTitle] = useState<string>('');
-    const [description, setDescription] = useState<string>('');
-    const [price, setPrice] = useState<number>(0);
-    const [quantity, setQuantity] = useState<number>(0);
-    const [rentalExpiration, setExpiration] = useState<string>('');
-
+export default function InfoEdit({onOk, onClose, values, inputEvents} : Props) : JSX.Element {
+    
     return (
         <>
             <Background onClick={onClose}/>
@@ -78,21 +73,21 @@ export default function InfoEdit({onOk, onClose} : Props) : JSX.Element {
                     <FontAwesomeIcon onClick={onClose} icon={faXmark} fontSize={30} style={{"cursor": "pointer", "color": "grey"}} />
                 </CloseButtonWrapper>
                 <Title>Movie Title</Title>
-                <Textfield flexible={true} radius={10} handleInputChange={v => setTitle(v)}></Textfield>
+                <Textfield flexible={true} radius={10} handleInputChange={v => inputEvents?.onTitleChange?.(v)}></Textfield>
                 <Title>Video Description</Title>
-                <TextArea handleChange={v => setDescription(v)}></TextArea>
+                <TextArea handleChange={v => inputEvents?.onDescriptionChange?.(v)}></TextArea>
                 <Title>Video Thumbnail</Title>
                 <ImageContainer>
                     <Title>Click to update</Title>
                 </ImageContainer>
                 <Title>Quantity</Title>
-                <Textfield flexible={true} radius={10} handleInputChange={v => setQuantity(parseInt(v))} type="number"></Textfield>
+                <Textfield flexible={true} radius={10} handleInputChange={v => inputEvents?.onQuantityChange?.(parseInt(v))} type="number"></Textfield>
                 <Title>Price</Title>
-                <Textfield flexible={true} radius={10} handleInputChange={v => setPrice(parseInt(v))} type="number"></Textfield>
+                <Textfield flexible={true} radius={10} handleInputChange={v => inputEvents?.onPriceChange?.(parseInt(v))} type="number"></Textfield>
                 <Title>Expiration</Title>
-                <Textfield flexible={true} radius={10} handleInputChange={v => setExpiration(v)}></Textfield>
+                <Textfield flexible={true} radius={10} handleInputChange={v => inputEvents?.onExpirationChange?.(v)}></Textfield>
                 <ButtonContainer>
-                    <Button radius={0} onClick={() => onOk?.({title, description, price, quantity, rentalExpiration})}>OK</Button>
+                    <Button radius={0} onClick={() => onOk?.(values)}>OK</Button>
                     <Button radius={0}>Delete</Button>
                 </ButtonContainer>
             </Paper>

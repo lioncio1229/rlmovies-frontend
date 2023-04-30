@@ -5,5 +5,13 @@ export type MovieInfo = {
     price: number,
     quantity: number,
     rentalExpiration: string,
-    _id?: string,
+    _id: string,
+}
+
+export type InputEvents = {
+    onTitleChange?: (title: string) => void,
+    onDescriptionChange?: (description: string) => void,
+    onQuantityChange?: (quantity: number) => void,
+    onPriceChange?: (price: number) => void,
+    onExpirationChange?: (rentalExpiration: string) => void,
 }

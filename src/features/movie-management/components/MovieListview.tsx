@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import Button from "../../../components/ui/Button";
 import DotsButton from "../../../components/ui/DotsButton";
-import { MovieInfo } from "../types";
+import { MovieInfoWithId } from "../types";
 
 const Center = styled.div`
   display: flex;
@@ -71,11 +71,12 @@ const Dots = styled(Cell)`
 `;
 
 type Props = {
-  movies?: MovieInfo[],
-  onAddClick?: () => void
+  movies?: MovieInfoWithId[],
+  onAddClick?: () => void,
+  onEditClick?: (id: string | undefined) => void,
 }
 
-export default function({movies, onAddClick} : Props) : JSX.Element
+export default function({movies, onAddClick, onEditClick} : Props) : JSX.Element
 {
     return (
         <Container>
@@ -99,7 +100,7 @@ export default function({movies, onAddClick} : Props) : JSX.Element
                         <Cell>{movie.quantity}</Cell>
                         <Cell>{movie.rentalExpiration}</Cell>
                         <Dots>
-                          <DotsButton />
+                          <DotsButton onClick={() => onEditClick?.(movie._id)}/>
                         </Dots>
                       </Row>
                     ))
