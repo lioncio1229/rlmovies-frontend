@@ -73,19 +73,19 @@ export default function InfoEdit({onOk, onClose, values, inputEvents} : Props) :
                     <FontAwesomeIcon onClick={onClose} icon={faXmark} fontSize={30} style={{"cursor": "pointer", "color": "grey"}} />
                 </CloseButtonWrapper>
                 <Title>Movie Title</Title>
-                <Textfield flexible={true} radius={10} handleInputChange={v => inputEvents?.onTitleChange?.(v)}></Textfield>
+                <Textfield flexible={true} radius={10} handleInputChange={v => inputEvents?.onTitleChange?.(v)} value={values.title}></Textfield>
                 <Title>Video Description</Title>
-                <TextArea handleChange={v => inputEvents?.onDescriptionChange?.(v)}></TextArea>
+                <TextArea handleChange={v => inputEvents?.onDescriptionChange?.(v)} value={values.description}></TextArea>
                 <Title>Video Thumbnail</Title>
                 <ImageContainer>
                     <Title>Click to update</Title>
                 </ImageContainer>
                 <Title>Quantity</Title>
-                <Textfield flexible={true} radius={10} handleInputChange={v => inputEvents?.onQuantityChange?.(parseInt(v))} type="number"></Textfield>
+                <Textfield flexible={true} radius={10} handleInputChange={v => inputEvents?.onQuantityChange?.(parseInt(v))} type="number" value={values.quantity}></Textfield>
                 <Title>Price</Title>
-                <Textfield flexible={true} radius={10} handleInputChange={v => inputEvents?.onPriceChange?.(parseInt(v))} type="number"></Textfield>
+                <Textfield flexible={true} radius={10} handleInputChange={v => inputEvents?.onPriceChange?.(parseInt(v))} type="number" value={values.price}></Textfield>
                 <Title>Expiration</Title>
-                <Textfield flexible={true} radius={10} handleInputChange={v => inputEvents?.onExpirationChange?.(v)}></Textfield>
+                <Textfield flexible={true} radius={10} handleInputChange={v => inputEvents?.onExpirationChange?.(v)} value={values.rentalExpiration}></Textfield>
                 <ButtonContainer>
                     <Button radius={0} onClick={() => onOk?.(values)}>OK</Button>
                     <Button radius={0}>Delete</Button>

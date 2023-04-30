@@ -1,6 +1,6 @@
 import type { RootState } from "../../store";
 import { useSelector, useDispatch } from "react-redux";
-import { setMovies, setEditorOpen, addMovie, updateInfoEditor } from "./slices/movieSlices";
+import { setMovies, setEditorOpen, addMovie, updateInfoEditor, clearInfoEditor } from "./slices/movieSlices";
 
 import MovieListview from "./components/MovieListview";
 import InfoEdit from "./components/InfoEdit";
@@ -54,6 +54,7 @@ export default function(){
             {
                 movieCopy._id = res.data;
                 dispatch(addMovie(movieCopy as MovieInfo));
+                dispatch(clearInfoEditor());
                 handleOnClose();
             }
         })

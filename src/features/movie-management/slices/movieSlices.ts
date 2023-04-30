@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { MovieInfoWithId } from "../types";
+import { MovieInfo } from "../types";
 
 
 export interface MoviesState {
-    movies: MovieInfoWithId[],
+    movies: MovieInfo[],
     isEditorOpen: boolean,
-    movieInfo: MovieInfoWithId,
+    movieInfo: MovieInfo,
 }
 
 const initialState : MoviesState = {
@@ -26,26 +26,29 @@ export const moviesSlice = createSlice({
     name: 'movies',
     initialState,
     reducers: {
-        setMovies: (state, action: PayloadAction<MovieInfoWithId[]>) => {
+        setMovies: (state, action: PayloadAction<MovieInfo[]>) => {
             state.movies = action.payload;
         },
-        addMovie: (state, action: PayloadAction<MovieInfoWithId>) => {
+        addMovie: (state, action: PayloadAction<MovieInfo>) => {
             state.movies.push(action.payload);
         },
-        updateMovie: (state, action: PayloadAction<MovieInfoWithId>) => {
+        updateMovie: (state, action: PayloadAction<MovieInfo>) => {
             const updatedMovie = action.payload;
             state.movies = state.movies.map(movie => movie._id === updatedMovie._id ? updatedMovie : movie);
         },
         setEditorOpen: (state, action: PayloadAction<boolean>) => {
             state.isEditorOpen = action.payload;
         },
-        updateInfoEditor: (state, action: PayloadAction<MovieInfoWithId>) => {
+        updateInfoEditor: (state, action: PayloadAction<MovieInfo>) => {
             state.movieInfo = action.payload;
+        },
+        clearInfoEditor: (state) => {
+            state.movieInfo = initialState.movieInfo;
         }
     }
 });
 
 
-export const { setMovies, addMovie, setEditorOpen, updateInfoEditor } = moviesSlice.actions;
+export const { setMovies, addMovie, setEditorOpen, updateInfoEditor, clearInfoEditor } = moviesSlice.actions;
 
 export default moviesSlice.reducer;

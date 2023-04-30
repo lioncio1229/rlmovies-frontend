@@ -10,6 +10,7 @@ interface InputProps {
 interface Props extends InputProps{
     type?: string,
     placeholder?: string,
+    value?: string | number,
     handleInputChange?: (value: string) => void,
 }
 
@@ -32,7 +33,7 @@ _input.defaultProps = {
 
 function Textfield(props : Props)
 {
-    return <_input type={props.type} {...props} onChange={(e : React.ChangeEvent<HTMLInputElement>) => props.handleInputChange?.(e.target.value)} placeholder={props.placeholder}/>
+    return <_input value={props.value} type={props.type} {...props} onChange={(e : React.ChangeEvent<HTMLInputElement>) => props.handleInputChange?.(e.target.value)} placeholder={props.placeholder}/>
 }
 
 export default Textfield;
