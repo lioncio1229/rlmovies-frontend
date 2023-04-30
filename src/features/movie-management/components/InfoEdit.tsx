@@ -57,13 +57,13 @@ const ButtonContainer = styled.div`
 `;
 
 type Props = {
+    values: MovieInfo,
     onOk?: (v : MovieInfo) => void,
     onClose?: () => void,
-    values: MovieInfo,
-    inputEvents?: InputEvents,
+    onFormChange?: (name: string, value: string | number) => void,
 }
 
-export default function InfoEdit({onOk, onClose, values, inputEvents} : Props) : JSX.Element {
+export default function InfoEdit({onOk, onClose, values, onFormChange} : Props) : JSX.Element {
     
     return (
         <>
@@ -73,19 +73,19 @@ export default function InfoEdit({onOk, onClose, values, inputEvents} : Props) :
                     <FontAwesomeIcon onClick={onClose} icon={faXmark} fontSize={30} style={{"cursor": "pointer", "color": "grey"}} />
                 </CloseButtonWrapper>
                 <Title>Movie Title</Title>
-                <Textfield flexible={true} radius={10} handleInputChange={v => inputEvents?.onTitleChange?.(v)} value={values.title}></Textfield>
+                <Textfield flexible={true} radius={10} handleInputChange={v => onFormChange?.('title', v)} value={values.title}></Textfield>
                 <Title>Video Description</Title>
-                <TextArea handleChange={v => inputEvents?.onDescriptionChange?.(v)} value={values.description}></TextArea>
+                <TextArea handleChange={v => onFormChange?.('description', v)} value={values.description}></TextArea>
                 <Title>Video Thumbnail</Title>
                 <ImageContainer>
                     <Title>Click to update</Title>
                 </ImageContainer>
                 <Title>Quantity</Title>
-                <Textfield flexible={true} radius={10} handleInputChange={v => inputEvents?.onQuantityChange?.(parseInt(v))} type="number" value={values.quantity}></Textfield>
+                <Textfield flexible={true} radius={10} handleInputChange={v => onFormChange?.('quantity', parseInt(v))} type="number" value={values.quantity}></Textfield>
                 <Title>Price</Title>
-                <Textfield flexible={true} radius={10} handleInputChange={v => inputEvents?.onPriceChange?.(parseInt(v))} type="number" value={values.price}></Textfield>
+                <Textfield flexible={true} radius={10} handleInputChange={v => onFormChange?.('price', parseInt(v))} type="number" value={values.price}></Textfield>
                 <Title>Expiration</Title>
-                <Textfield flexible={true} radius={10} handleInputChange={v => inputEvents?.onExpirationChange?.(v)} value={values.rentalExpiration}></Textfield>
+                <Textfield flexible={true} radius={10} handleInputChange={v => onFormChange?.('rentalExpiration', v)} value={values.rentalExpiration}></Textfield>
                 <ButtonContainer>
                     <Button radius={0} onClick={() => onOk?.(values)}>OK</Button>
                     <Button radius={0}>Delete</Button>

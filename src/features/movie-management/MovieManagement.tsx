@@ -75,29 +75,15 @@ export default function(){
         dispatch(setEditorOpen(false));
     }
 
-    const inputs : InputEvents = {
-        onTitleChange: title => {
-            dispatch(updateInfoEditor({...movieInfo, title}));
-        },
-        onDescriptionChange: description => {
-            dispatch(updateInfoEditor({...movieInfo, description}));
-        },
-        onPriceChange: price => {
-            dispatch(updateInfoEditor({...movieInfo, price}));
-        },
-        onQuantityChange: quantity => {
-            dispatch(updateInfoEditor({...movieInfo, quantity}));
-        },
-        onExpirationChange: rentalExpiration => {
-            dispatch(updateInfoEditor({...movieInfo, rentalExpiration}));
-        }
+    const handleFormChange = (name: string, value: string | number) => {
+        dispatch(updateInfoEditor({...movieInfo, [name]: value}));
     }
 
     return (
         <>
             <MovieListview movies={movies} onAddClick={handleOnAddClick} onEditClick={handleOnEdit}/>
             {
-                isEditorOpen && <InfoEdit onOk={handleInfoSubmit} onClose={handleOnClose} inputEvents={inputs} values={movieInfo}/>
+                isEditorOpen && <InfoEdit onOk={handleInfoSubmit} onClose={handleOnClose} onFormChange={handleFormChange} values={movieInfo}/>
             }
         </>
     )
