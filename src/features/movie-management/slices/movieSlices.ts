@@ -1,13 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { MovieInfo } from "../types";
+import { MovieInfo, MoviesState } from "../types";
 
-
-export interface MoviesState {
-    movies: MovieInfo[],
-    isEditorOpen: boolean,
-    movieInfo: MovieInfo,
-}
 
 const initialState : MoviesState = {
     movies: [],

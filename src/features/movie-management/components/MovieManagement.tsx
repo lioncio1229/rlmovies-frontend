@@ -1,5 +1,4 @@
-import type { RootState } from "../../store";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   setMovies,
   setEditorOpen,
@@ -8,22 +7,25 @@ import {
   clearInfoEditor,
   updateMovie,
   deleteMovie,
-} from "./slices/movieSlices";
+} from "../slices/movieSlices";
 
-import MovieListview from "./components/MovieListview";
-import InfoEdit from "./components/InfoEdit";
-import { MovieInfo } from "./types";
+import MovieListview from "./MovieListview";
+import InfoEdit from "./InfoEdit";
+import { MovieInfo } from "../types";
 
-import axios, {endpoints} from "../../api/axios";
+import axios, {endpoints} from "../../../api/axios";
 import { useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-export default function(){
+type Props = {
+    movies: MovieInfo[],
+    isEditorOpen: boolean,
+    movieInfo: MovieInfo,
+}
+
+export default function({movies, isEditorOpen, movieInfo} : Props){
     const dispatch = useDispatch();
-    const movies = useSelector((state: RootState) => state.adminMovies.movies);
-    const isEditorOpen = useSelector((state: RootState) => state.adminMovies.isEditorOpen);
-    const movieInfo = useSelector((state: RootState) => state.adminMovies.movieInfo)
 
     const navigate = useNavigate();
 

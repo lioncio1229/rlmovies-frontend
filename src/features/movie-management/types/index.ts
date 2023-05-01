@@ -15,3 +15,9 @@ export type InputEvents = {
     onPriceChange?: (price: number) => void,
     onExpirationChange?: (rentalExpiration: string) => void,
 }
+
+export type MoviesState = {
+    movies: MovieInfo[],
+    isEditorOpen: boolean,
+    movieInfo: MovieInfo,
+}
