@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import Button from "../../../components/ui/Button";
 import DotsButton from "../../../components/ui/DotsButton";
-import { MovieInfoWithId } from "../types";
+import { MovieInfo } from "../types";
 
 const Center = styled.div`
   display: flex;
@@ -71,7 +71,7 @@ const Dots = styled(Cell)`
 `;
 
 type Props = {
-  movies?: MovieInfoWithId[],
+  movies?: MovieInfo[],
   onAddClick?: () => void,
   onEditClick?: (id: string | undefined) => void,
 }
@@ -86,10 +86,10 @@ export default function({movies, onAddClick, onEditClick} : Props) : JSX.Element
               </Top>
               <List>
                   <HeaderRow>
-                    <Cell>Thumbnail</Cell>
                     <Cell>Title</Cell>
                     <Cell>Price</Cell>
-                    <Cell>Action</Cell>
+                    <Cell>Quantity</Cell>
+                    <Cell>Expiration</Cell>
                     <Dots></Dots>
                   </HeaderRow>
                   {

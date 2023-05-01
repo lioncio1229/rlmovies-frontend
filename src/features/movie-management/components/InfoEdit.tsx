@@ -4,7 +4,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Textfield from "../../../components/ui/Textfield";
 import TextArea from "../../../components/ui/TextArea";
 import Button from "../../../components/ui/Button";
-import { MovieInfo, InputEvents } from "../types";
+import { MovieInfo } from "../types";
 
 const Background = styled.div`
   background-color: white;
@@ -60,10 +60,11 @@ type Props = {
     values: MovieInfo,
     onOk?: (v : MovieInfo) => void,
     onClose?: () => void,
+    onDelete?: (id: string) => void,
     onFormChange?: (name: string, value: string | number) => void,
 }
 
-export default function InfoEdit({onOk, onClose, values, onFormChange} : Props) : JSX.Element {
+export default function InfoEdit({onOk, onClose, values, onFormChange, onDelete} : Props) : JSX.Element {
     
     return (
         <>
@@ -88,7 +89,7 @@ export default function InfoEdit({onOk, onClose, values, onFormChange} : Props) 
                 <Textfield flexible={true} radius={10} handleInputChange={v => onFormChange?.('rentalExpiration', v)} value={values.rentalExpiration}></Textfield>
                 <ButtonContainer>
                     <Button radius={0} onClick={() => onOk?.(values)}>OK</Button>
-                    <Button radius={0}>Delete</Button>
+                    <Button radius={0} onClick={() => onDelete?.(values._id)}>Delete</Button>
                 </ButtonContainer>
             </Paper>
         </>

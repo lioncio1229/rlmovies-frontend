@@ -36,6 +36,10 @@ export const moviesSlice = createSlice({
             const updatedMovie = action.payload;
             state.movies = state.movies.map(movie => movie._id === updatedMovie._id ? updatedMovie : movie);
         },
+        deleteMovie: (state, action: PayloadAction<string>) => {
+            const id = action.payload;
+            state.movies = state.movies.filter(movie => movie._id !== id);
+        },
         setEditorOpen: (state, action: PayloadAction<boolean>) => {
             state.isEditorOpen = action.payload;
         },
@@ -49,6 +53,6 @@ export const moviesSlice = createSlice({
 });
 
 
-export const { setMovies, addMovie, updateMovie, setEditorOpen, updateInfoEditor, clearInfoEditor } = moviesSlice.actions;
+export const { setMovies, addMovie, updateMovie, deleteMovie, setEditorOpen, updateInfoEditor, clearInfoEditor } = moviesSlice.actions;
 
 export default moviesSlice.reducer;

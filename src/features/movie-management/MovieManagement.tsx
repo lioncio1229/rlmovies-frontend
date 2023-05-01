@@ -7,6 +7,7 @@ import {
   updateInfoEditor,
   clearInfoEditor,
   updateMovie,
+  deleteMovie,
 } from "./slices/movieSlices";
 
 import MovieListview from "./components/MovieListview";
@@ -99,6 +100,17 @@ export default function(){
         movie && dispatch(updateInfoEditor(movie));
     }
 
+    const handleOnDelete = (id: string) => {
+        axios.delete(endpoints.adminMovies.movies + '/' + id)
+        .then(res => {
+            dispatch(deleteMovie(id));
+            handleOnClose();
+        })
+        .catch((e) => {
+            console.error(e);
+        });
+    }
+
     const handleOnClose = () => {
         dispatch(clearInfoEditor());
         dispatch(setEditorOpen(false));
@@ -112,7 +124,7 @@ export default function(){
         <>
             <MovieListview movies={movies} onAddClick={handleOnAddClick} onEditClick={handleOnEdit}/>
             {
-                isEditorOpen && <InfoEdit onOk={handleInfoSubmit} onClose={handleOnClose} onFormChange={handleFormChange} values={movieInfo}/>
+                isEditorOpen && <InfoEdit onOk={handleInfoSubmit} onClose={handleOnClose} onFormChange={handleFormChange} onDelete={handleOnDelete} values={movieInfo}/>
             }
         </>
     )
