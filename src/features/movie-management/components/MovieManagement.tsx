@@ -18,6 +18,8 @@ import { useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
+import { useGetMoviesQuery, useUpdateMovieMutation } from "../api";
+
 type Props = {
     movies: MovieInfo[],
     isEditorOpen: boolean,
@@ -26,72 +28,86 @@ type Props = {
 
 export default function({movies, isEditorOpen, movieInfo} : Props){
     const dispatch = useDispatch();
-
     const navigate = useNavigate();
+    const getMovieRes = useGetMoviesQuery();
+    const [triggerUpdateMovie, result] = useUpdateMovieMutation();
+    
+    useEffect(() => {
+        if(getMovieRes.isError)
+        {
+            navigate('/signin');
+        }
+        else getMovieRes.isSuccess && dispatch(setMovies(getMovieRes.data));
+    }, [getMovieRes.isSuccess, getMovieRes.isError]);
+
 
     useEffect(() => {
-        axios.get(endpoints.adminMovies.movies)
-        .then(res => {
-            if(res.statusText === 'OK')
-            {
-                console.log(res);
-                if(!res.data) return;
-                let movieList : MovieInfo[] = res.data;
-                dispatch(setMovies(movieList));
-            }
-        })
-        .catch((e) => {
-            console.error(e);
-            navigate('/signin');
-        });
-    }, []);
+        if(result.isError)
+        {
+            console.log('HAS ERROR');
+        }
+        if(result.data)
+        {
+            dispatch(updateMovie(result.data));
+            handleOnClose();
+        }
+        console.log('result: ', result);
+    }, [result.isSuccess, result.isError]);
+
+    if(getMovieRes.isLoading || result.isLoading) {
+        return <h1>
+            Loading...
+        </h1>;
+    }
 
     const handleOnAddClick = () => {
         dispatch(setEditorOpen(true));
     }
 
     const handleInfoSubmit = (movie : MovieInfo) => {
-        const _movie : MovieInfo | undefined = movies.find(v => v._id === movie._id);
+        triggerUpdateMovie(movie);
+
+        // const _movie : MovieInfo | undefined = movies.find(v => v._id === movie._id);
         
-        const movieCopy : { [key: string]: string | number } = {
-            title: movie.title,
-            description: movie.description,
-            quantity: movie.quantity,
-            price: movie.price,
-            rentalExpiration: movie.rentalExpiration,
-        };
+        // const movieCopy : { [key: string]: string | number } = {
+        //     title: movie.title,
+        //     description: movie.description,
+        //     quantity: movie.quantity,
+        //     price: movie.price,
+        //     rentalExpiration: movie.rentalExpiration,
+        // };
 
-        if(_movie)
-        {
-            axios.put(endpoints.adminMovies.movies + '/' + _movie._id, movieCopy)
-            .then(res => {
-                if(res.statusText === 'OK' && movie)
-                {
-                    movieCopy._id = movie._id;
-                    dispatch(updateMovie(movieCopy as MovieInfo));
-                    handleOnClose();
-                }
-            })
-            .catch((e) => {
-                console.error(e);
-                navigate('/signin');
-            })
-            return;
-        }
+        // if(_movie)
+        // {
+        //     axios.put(endpoints.adminMovies.movies + '/' + _movie._id, movieCopy)
+        //     .then(res => {
+        //         if(res.statusText === 'OK' && movie)
+        //         {
+        //             movieCopy._id = movie._id;
+        //             dispatch(updateMovie(movieCopy as MovieInfo));
+        //             handleOnClose();
+        //         }
+        //     })
+        //     .catch((e) => {
+        //         console.error(e);
+        //         navigate('/signin');
+        //     })
+        //     return;
+        // }
 
-        axios.post(endpoints.adminMovies.movies, movieCopy)
-        .then(res => {
-            if(res.statusText === 'OK' && movie)
-            {
-                movieCopy._id = res.data;
-                dispatch(addMovie(movieCopy as MovieInfo));
-                handleOnClose();
-            }
-        })
-        .catch((e) => {
-            console.error(e);
-            navigate('/signin');
-        })
+        // axios.post(endpoints.adminMovies.movies, movieCopy)
+        // .then(res => {
+        //     if(res.statusText === 'OK' && movie)
+        //     {
+        //         movieCopy._id = res.data;
+        //         dispatch(addMovie(movieCopy as MovieInfo));
+        //         handleOnClose();
+        //     }
+        // })
+        // .catch((e) => {
+        //     console.error(e);
+        //     navigate('/signin');
+        // })
     }
     
     const handleOnEdit = (id: string | undefined) => {

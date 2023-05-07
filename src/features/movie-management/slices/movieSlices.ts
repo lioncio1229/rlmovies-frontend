@@ -3,7 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { MovieInfo, MoviesState } from "../types";
 
 
-const initialState : MoviesState = {
+export const initialState : MoviesState = {
     movies: [],
     isEditorOpen: false,
     movieInfo: {

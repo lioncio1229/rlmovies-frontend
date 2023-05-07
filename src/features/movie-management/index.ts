@@ -1,6 +1,6 @@
 import MovieManagement from "./containers/MovieManagement";
 import movieSlices from "./slices/movieSlices";
+import { moviesAPI } from "./api";
 
-
-export {movieSlices};
+export {movieSlices, moviesAPI};
 export default MovieManagement;
