@@ -1,4 +1,4 @@
-import MovieManagement from "./containers/MovieManagement";
+import MovieManagement from "./components/MovieManagement";
 import movieSlices from "./slices/movieSlices";
 import { moviesAPI } from "./api";
 

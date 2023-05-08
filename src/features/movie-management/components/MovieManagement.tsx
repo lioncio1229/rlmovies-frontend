@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   setMovies,
   setEditorOpen,
@@ -9,13 +9,12 @@ import {
   deleteMovie,
 } from "../slices/movieSlices";
 
+import { selectMovies, selectIsEditorOpen, selectMovieInfo } from "../selectors";
+
 import MovieListview from "./MovieListview";
 import InfoEdit from "./InfoEdit";
 import { MovieInfo } from "../types";
-
-import axios, {endpoints} from "../../../api/axios";
 import { useEffect } from "react";
-
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -25,15 +24,15 @@ import {
   useDeleteMovieMutation,
 } from "../api";
 
-type Props = {
-    movies: MovieInfo[],
-    isEditorOpen: boolean,
-    movieInfo: MovieInfo,
-}
-
-export default function({movies, isEditorOpen, movieInfo} : Props){
+export default function(){
     const dispatch = useDispatch();
+
+    const movies = useSelector(selectMovies);
+    const isEditorOpen = useSelector(selectIsEditorOpen);
+    const movieInfo = useSelector(selectMovieInfo);
+
     const navigate = useNavigate();
+    
     const getMovieRes = useGetMoviesQuery();
     const [triggerUpdateMovie, result] = useUpdateMovieMutation();
     const [triggerAddMovie, addMovieResult] = useAddMovieMutation();
