@@ -32,9 +32,9 @@ export default function(){
     const movieInfo = useSelector(selectMovieInfo);
 
     const navigate = useNavigate();
-    
+
     const getMovieRes = useGetMoviesQuery();
-    const [triggerUpdateMovie, result] = useUpdateMovieMutation();
+    const [triggerUpdateMovie, updateMovieResult] = useUpdateMovieMutation();
     const [triggerAddMovie, addMovieResult] = useAddMovieMutation();
     const [triggerDeleteMovie, deleteMovieResult] = useDeleteMovieMutation();
 
@@ -43,7 +43,7 @@ export default function(){
         else getMovieRes.isSuccess && dispatch(setMovies(getMovieRes.data));
     }, [getMovieRes.isSuccess, getMovieRes.isError]);
 
-    if(getMovieRes.isLoading || result.isLoading || addMovieResult.isLoading || deleteMovieResult.isLoading) {
+    if(getMovieRes.isLoading || updateMovieResult.isLoading || addMovieResult.isLoading || deleteMovieResult.isLoading) {
         return <h1>
             Loading...
         </h1>;
