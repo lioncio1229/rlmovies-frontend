@@ -18,7 +18,12 @@ import { useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import { useGetMoviesQuery, useUpdateMovieMutation } from "../api";
+import {
+  useGetMoviesQuery,
+  useUpdateMovieMutation,
+  useAddMovieMutation,
+  useDeleteMovieMutation,
+} from "../api";
 
 type Props = {
     movies: MovieInfo[],
@@ -31,30 +36,15 @@ export default function({movies, isEditorOpen, movieInfo} : Props){
     const navigate = useNavigate();
     const getMovieRes = useGetMoviesQuery();
     const [triggerUpdateMovie, result] = useUpdateMovieMutation();
-    
+    const [triggerAddMovie, addMovieResult] = useAddMovieMutation();
+    const [triggerDeleteMovie, deleteMovieResult] = useDeleteMovieMutation();
+
     useEffect(() => {
-        if(getMovieRes.isError)
-        {
-            navigate('/signin');
-        }
+        if(getMovieRes.isError) navigate('/signin');
         else getMovieRes.isSuccess && dispatch(setMovies(getMovieRes.data));
     }, [getMovieRes.isSuccess, getMovieRes.isError]);
 
-
-    useEffect(() => {
-        if(result.isError)
-        {
-            console.log('HAS ERROR');
-        }
-        if(result.data)
-        {
-            dispatch(updateMovie(result.data));
-            handleOnClose();
-        }
-        console.log('result: ', result);
-    }, [result.isSuccess, result.isError]);
-
-    if(getMovieRes.isLoading || result.isLoading) {
+    if(getMovieRes.isLoading || result.isLoading || addMovieResult.isLoading || deleteMovieResult.isLoading) {
         return <h1>
             Loading...
         </h1>;
@@ -65,49 +55,29 @@ export default function({movies, isEditorOpen, movieInfo} : Props){
     }
 
     const handleInfoSubmit = (movie : MovieInfo) => {
-        triggerUpdateMovie(movie);
+        const _movie : MovieInfo | undefined = movies.find(v => v._id === movie._id);
 
-        // const _movie : MovieInfo | undefined = movies.find(v => v._id === movie._id);
-        
-        // const movieCopy : { [key: string]: string | number } = {
-        //     title: movie.title,
-        //     description: movie.description,
-        //     quantity: movie.quantity,
-        //     price: movie.price,
-        //     rentalExpiration: movie.rentalExpiration,
-        // };
+        if(_movie) triggerUpdateMovie(movie)
+        .then((res) => {
+            if('data' in res) {
+                dispatch(updateMovie(res.data));
+                handleOnClose();
+            }
+            else {
+                navigate('/signin');
+            }
+        });
 
-        // if(_movie)
-        // {
-        //     axios.put(endpoints.adminMovies.movies + '/' + _movie._id, movieCopy)
-        //     .then(res => {
-        //         if(res.statusText === 'OK' && movie)
-        //         {
-        //             movieCopy._id = movie._id;
-        //             dispatch(updateMovie(movieCopy as MovieInfo));
-        //             handleOnClose();
-        //         }
-        //     })
-        //     .catch((e) => {
-        //         console.error(e);
-        //         navigate('/signin');
-        //     })
-        //     return;
-        // }
-
-        // axios.post(endpoints.adminMovies.movies, movieCopy)
-        // .then(res => {
-        //     if(res.statusText === 'OK' && movie)
-        //     {
-        //         movieCopy._id = res.data;
-        //         dispatch(addMovie(movieCopy as MovieInfo));
-        //         handleOnClose();
-        //     }
-        // })
-        // .catch((e) => {
-        //     console.error(e);
-        //     navigate('/signin');
-        // })
+        else triggerAddMovie(movie)
+        .then((res) => {
+            if('data' in res) {
+                dispatch(addMovie(res.data));
+                handleOnClose();
+            }
+            else {
+                navigate('/signin');
+            }
+        });
     }
     
     const handleOnEdit = (id: string | undefined) => {
@@ -119,13 +89,15 @@ export default function({movies, isEditorOpen, movieInfo} : Props){
     }
 
     const handleOnDelete = (id: string) => {
-        axios.delete(endpoints.adminMovies.movies + '/' + id)
+        triggerDeleteMovie(id)
         .then(res => {
-            dispatch(deleteMovie(id));
-            handleOnClose();
-        })
-        .catch((e) => {
-            console.error(e);
+            if('data' in res){
+                dispatch(deleteMovie(id));
+                handleOnClose();
+            }
+            else{
+                navigate('/signin');
+            }
         });
     }
 
