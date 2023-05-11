@@ -27,7 +27,7 @@ interface FontWeights {
 }
 
 
-interface Theme {
+export interface Theme {
     colors: Colors,
     fontSizes: Size,
     fontWeights: FontWeights,

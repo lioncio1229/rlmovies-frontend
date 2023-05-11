@@ -24,6 +24,8 @@ import {
   useDeleteMovieMutation,
 } from "../api";
 
+import Snackbar from "../../../components/Snackbar";
+
 export default function(){
     const dispatch = useDispatch();
 
@@ -111,6 +113,7 @@ export default function(){
 
     return (
         <>
+            <Snackbar/>
             <MovieListview movies={movies} onAddClick={handleOnAddClick} onEditClick={handleOnEdit}/>
             {
                 isEditorOpen && <InfoEdit onOk={handleInfoSubmit} onClose={handleOnClose} onFormChange={handleFormChange} onDelete={handleOnDelete} values={movieInfo}/>

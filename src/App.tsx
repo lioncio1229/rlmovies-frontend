@@ -5,7 +5,6 @@ import { store } from './store';
 import { Signin, Signup } from "./features/auth";
 import AdminDashboard from "./pages/AdminMovieDashboard";
 
-
 const router = createBrowserRouter([
     {
         path: '/signin',
