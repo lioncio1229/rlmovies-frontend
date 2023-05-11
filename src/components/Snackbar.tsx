@@ -2,16 +2,14 @@ import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import LoadingCircle from "./LoadingCircle";
-
-enum State {
-    processing,
-    success,
-    error,
-}
+import React from "react";
 
 type Props = {
-    state?: State,
+    status?: 'processing' | 'success' | 'error',
     message?: string,
+    withUndo?: boolean,
+    onUndo?: (e: React.MouseEvent<HTMLElement>) => void,
+    onClose?: (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => void,
 }
 
 const Snackbar = styled.div<{color: string}>`
@@ -19,9 +17,6 @@ const Snackbar = styled.div<{color: string}>`
   width: 300px;
   height: 50px;
   border-radius: 5px;
-  position: fixed;
-  bottom: 20px;
-  left: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -47,24 +42,24 @@ Snackbar.defaultProps = {
     color: 'primary'
 }
 
-export default function ({state = State.processing, message=''} : Props) : JSX.Element {
+export default function ({status = 'success', message='', withUndo = false, onUndo, onClose} : Props) : JSX.Element {
 
-    switch(state)
+    switch(status)
     {
-        case State.processing:
+        case 'processing':
             return (
                 <Snackbar color="dark">
                     <div>{message}</div>
                     <LoadingCircle color="light"/>
                 </Snackbar>
             );
-        case State.success:
+        case 'success':
             return (
                 <Snackbar color="success">
                     <div>{message}</div>
                     <div className="with-undo">
-                        <div>Undo</div>
-                        <FontAwesomeIcon icon={faClose} className="close-btn"/>
+                        {withUndo && <div onClick={(e) => onUndo?.(e)}>Undo</div>}
+                        <FontAwesomeIcon icon={faClose} className="close-btn" onClick={(e) => onClose?.(e)}/>
                     </div>
                 </Snackbar>
             );
@@ -72,7 +67,7 @@ export default function ({state = State.processing, message=''} : Props) : JSX.E
             return (
                 <Snackbar color="danger">
                     <div>{message}</div>
-                    <FontAwesomeIcon icon={faClose} className="close-btn"/>
+                    <FontAwesomeIcon icon={faClose} className="close-btn" onClick={(e) => onClose?.(e)}/>
                 </Snackbar>
             );
     };

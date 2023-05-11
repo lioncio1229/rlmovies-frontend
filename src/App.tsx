@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { store } from './store';
 import { Signin, Signup } from "./features/auth";
 import AdminDashboard from "./pages/AdminMovieDashboard";
+import Snackbar from "./components/Snackbar";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +26,7 @@ function App()
     return (
         <Theme>
             <Provider store={store}>
+                <Snackbar message="Added" status="success" withUndo={true}/>
                 <RouterProvider router={router} />
             </Provider>
         </Theme>
