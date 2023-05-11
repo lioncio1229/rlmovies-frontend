@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import Button from "../../../components/ui/Button";
-import DotsButton from "../../../components/ui/DotsButton";
+import Button from "../../../components/Button";
+import DotsButton from "../../../components/DotsButton";
 import { MovieInfo } from "../types";
 
 const Center = styled.div`

@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import Textfield from "../../../components/ui/Textfield";
-import TextArea from "../../../components/ui/TextArea";
-import Button from "../../../components/ui/Button";
+import Textfield from "../../../components/Textfield";
+import TextArea from "../../../components/TextArea";
+import Button from "../../../components/Button";
 import { MovieInfo } from "../types";
 
 const Background = styled.div`
