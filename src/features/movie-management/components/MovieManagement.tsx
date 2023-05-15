@@ -24,6 +24,7 @@ import {
   useDeleteMovieMutation,
 } from "../api";
 
+import { addSnackbar, popSnackbar } from "../../Snackbar/slices";
 
 export default function(){
     const dispatch = useDispatch();
@@ -44,24 +45,21 @@ export default function(){
         else getMovieRes.isSuccess && dispatch(setMovies(getMovieRes.data));
     }, [getMovieRes.isSuccess, getMovieRes.isError]);
 
-    if(getMovieRes.isLoading || updateMovieResult.isLoading || addMovieResult.isLoading || deleteMovieResult.isLoading) {
-        return <h1>
-            Loading...
-        </h1>;
-    }
-
     const handleOnAddClick = () => {
         dispatch(setEditorOpen(true));
     }
 
     const handleInfoSubmit = (movie : MovieInfo) => {
         const _movie : MovieInfo | undefined = movies.find(v => v._id === movie._id);
+        handleOnClose();
+        dispatch(addSnackbar({status: 'processing', message: 'Updating movie'}));
 
         if(_movie) triggerUpdateMovie(movie)
         .then((res) => {
             if('data' in res) {
                 dispatch(updateMovie(res.data));
-                handleOnClose();
+                dispatch(popSnackbar());
+                dispatch(addSnackbar({status: 'success', message: 'Movie Added'}))
             }
             else {
                 navigate('/signin');
@@ -72,7 +70,6 @@ export default function(){
         .then((res) => {
             if('data' in res) {
                 dispatch(addMovie(res.data));
-                handleOnClose();
             }
             else {
                 navigate('/signin');
@@ -89,11 +86,11 @@ export default function(){
     }
 
     const handleOnDelete = (id: string) => {
+        handleOnClose();
         triggerDeleteMovie(id)
         .then(res => {
             if('data' in res){
                 dispatch(deleteMovie(id));
-                handleOnClose();
             }
             else{
                 navigate('/signin');
