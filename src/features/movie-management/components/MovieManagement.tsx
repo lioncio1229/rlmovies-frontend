@@ -25,6 +25,7 @@ import {
 } from "../api";
 
 import { addSnackbar, popSnackbar } from "../../Snackbar/slices";
+import { showLoading } from "../../../layouts/Header/slices";
 
 export default function(){
     const dispatch = useDispatch();
@@ -41,9 +42,19 @@ export default function(){
     const [triggerDeleteMovie, deleteMovieResult] = useDeleteMovieMutation();
 
     useEffect(() => {
-        if(getMovieRes.isError) navigate('/signin');
-        else getMovieRes.isSuccess && dispatch(setMovies(getMovieRes.data));
-    }, [getMovieRes.isSuccess, getMovieRes.isError]);
+        if(getMovieRes.isError) { 
+            dispatch(showLoading(false));
+            navigate('/signin');
+        }
+        else if (getMovieRes.isSuccess) {
+            dispatch(setMovies(getMovieRes.data));
+            dispatch(showLoading(false));
+        }
+        else if(getMovieRes.isFetching)
+        {
+            dispatch(showLoading(true));
+        }
+    }, [getMovieRes.isFetching, getMovieRes.isSuccess, getMovieRes.isError]);
 
     const handleOnAddClick = () => {
         dispatch(setEditorOpen(true));

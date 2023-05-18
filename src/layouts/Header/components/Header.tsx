@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import {title} from '../../../../config.json';
 import { Link } from "react-router-dom";
-
+import HorizontalLoading from "./HorizontalLoading";
+import { useSelector } from "react-redux";
+import { selectLoading } from "../selectors";
 
 interface Navigation{
     name: string,
@@ -57,25 +59,32 @@ const NavButton = styled.div<{selected: boolean}>`
 
 export default function(props: Props)
 {
+    const isLoading = useSelector(selectLoading);
+
     return (
-        <Header>
-            <Container>
-                <Title>
-                    {title}
-                </Title>
-                <Nav>
-                    {
-                        props.navigations && props.navigations.map((item, i) => (
-                            <NavButton key={i} selected={item.name === props.navName}>
-                                {
-                                    <Link className="link" to={item.path}>{item.name}</Link>
-                                }
-                            </NavButton>
-                        ))
-                    }
-                    <NavButton selected={false}>Logout</NavButton>
-                </Nav>
-            </Container>
-        </Header>
+        <>
+            {
+                isLoading && <HorizontalLoading/>
+            }
+            <Header>
+                <Container>
+                    <Title>
+                        {title}
+                    </Title>
+                    <Nav>
+                        {
+                            props.navigations && props.navigations.map((item, i) => (
+                                <NavButton key={i} selected={item.name === props.navName}>
+                                    {
+                                        <Link className="link" to={item.path}>{item.name}</Link>
+                                    }
+                                </NavButton>
+                            ))
+                        }
+                        <NavButton selected={false}>Logout</NavButton>
+                    </Nav>
+                </Container>
+            </Header>
+        </>
     )
 }
