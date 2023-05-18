@@ -59,7 +59,7 @@ export default function(){
             if('data' in res) {
                 dispatch(updateMovie(res.data));
                 dispatch(popSnackbar());
-                dispatch(addSnackbar({status: 'success', message: 'Movie Added'}))
+                dispatch(addSnackbar({status: 'success', message: 'Movie Updated'}))
             }
             else {
                 navigate('/signin');
@@ -69,6 +69,8 @@ export default function(){
         else triggerAddMovie(movie)
         .then((res) => {
             if('data' in res) {
+                dispatch(popSnackbar());
+                dispatch(addSnackbar({status: 'success', message: 'Movie Added'}))
                 dispatch(addMovie(res.data));
             }
             else {
@@ -86,10 +88,13 @@ export default function(){
     }
 
     const handleOnDelete = (id: string) => {
+        dispatch(addSnackbar({status: 'processing', message: 'Deleting movie'}));
         handleOnClose();
         triggerDeleteMovie(id)
         .then(res => {
             if('data' in res){
+                dispatch(popSnackbar());
+                dispatch(addSnackbar({status: 'success', message: 'Movie Deleted'}))
                 dispatch(deleteMovie(id));
             }
             else{
