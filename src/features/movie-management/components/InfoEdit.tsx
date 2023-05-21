@@ -5,9 +5,9 @@ import Textfield from "../../../components/Textfield";
 import TextArea from "../../../components/TextArea";
 import Button from "../../../components/Button";
 import { MovieInfo } from "../types";
-import Uploader from "./upload/Uploader";
 import GalleryIcon from '../assets/gallery.png';
-import UploaderBase from "./upload/UploaderBase";
+import Uploader from "./Uploader";
+import Viewer from "./Viewer";
 
 const Background = styled.div`
   background-color: white;
@@ -49,6 +49,16 @@ const ButtonContainer = styled.div`
     margin: 14px 0;
 `;
 
+const Box = styled.div`
+    width: 230px;
+    height: 230px;
+    background-color: ${props => props.theme.colors.secondary};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+`
+
 type Props = {
     values: MovieInfo,
     onOk?: (v : MovieInfo) => void,
@@ -76,12 +86,12 @@ export default function InfoEdit({onOk, onClose, values, onFormChange, onDelete}
                 <Title>Video Description</Title>
                 <TextArea handleChange={v => onFormChange?.('description', v)} value={values.description}></TextArea>
                 <Title>Video Thumbnail</Title>
-                <Uploader>
+                <Box>
                     {
-                        values.imageUrl ? <img style={{width: "100%", height: "100%"}} src={values.imageUrl}/> :
-                        <UploaderBase iconPath={GalleryIcon} onDrop={handleDrop}/>
+                        values.imageUrl ? <Viewer src={values.imageUrl} viewerType="image"/> :
+                        <Uploader iconPath={GalleryIcon} onDrop={handleDrop}/>
                     }
-                </Uploader>
+                </Box>
                 <Title>Quantity</Title>
                 <Textfield flexible={true} radius={10} handleInputChange={v => onFormChange?.('quantity', parseInt(v))} type="number" value={values.quantity}></Textfield>
                 <Title>Price</Title>

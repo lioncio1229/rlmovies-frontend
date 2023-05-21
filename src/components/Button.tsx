@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import styled from 'styled-components';
 
 
@@ -33,11 +33,9 @@ StyledButton.defaultProps = {
     radius: 25,
 }
 
-function Button(props : Props) : JSX.Element
+export default forwardRef<HTMLButtonElement, Props>((props, ref) => 
 {
     return (
-        <StyledButton {...props} onClick={props.onClick} > {props.children} </StyledButton>
+        <StyledButton ref={ref} {...props} onClick={props.onClick} > {props.children} </StyledButton>
     )
-}
-
-export default Button;
+});
