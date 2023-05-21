@@ -119,7 +119,13 @@ export default function(){
         dispatch(setEditorOpen(false));
     }
 
-    const handleFormChange = (name: string, value: string | number) => {
+    const handleFormChange = (name: string, value: string | number | FileList) => {
+        if(name === 'image')
+        {
+            const files = value as FileList;
+            name = 'imageUrl';
+            value = URL.createObjectURL(files[0]);
+        }
         dispatch(updateInfoEditor({...movieInfo, [name]: value}));
     }
 

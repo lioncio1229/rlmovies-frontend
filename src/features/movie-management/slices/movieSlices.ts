@@ -13,6 +13,7 @@ export const initialState : MoviesState = {
         price: 0,
         quantity: 0,
         rentalExpiration: '',
+        imageUrl: '',
     }
 }
 

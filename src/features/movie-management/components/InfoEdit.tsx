@@ -5,8 +5,9 @@ import Textfield from "../../../components/Textfield";
 import TextArea from "../../../components/TextArea";
 import Button from "../../../components/Button";
 import { MovieInfo } from "../types";
-import Uploader from "./Uploader";
+import Uploader from "./upload/Uploader";
 import GalleryIcon from '../assets/gallery.png';
+import UploaderBase from "./upload/UploaderBase";
 
 const Background = styled.div`
   background-color: white;
@@ -53,11 +54,16 @@ type Props = {
     onOk?: (v : MovieInfo) => void,
     onClose?: () => void,
     onDelete?: (id: string) => void,
-    onFormChange?: (name: string, value: string | number) => void,
+    onFormChange?: (name: string, value: string | number | FileList) => void,
 }
 
 export default function InfoEdit({onOk, onClose, values, onFormChange, onDelete} : Props) : JSX.Element {
     
+
+    const handleDrop = (files: FileList) => {
+        onFormChange?.('image', files);
+    }
+
     return (
         <>
             <Background onClick={onClose}/>
@@ -70,7 +76,12 @@ export default function InfoEdit({onOk, onClose, values, onFormChange, onDelete}
                 <Title>Video Description</Title>
                 <TextArea handleChange={v => onFormChange?.('description', v)} value={values.description}></TextArea>
                 <Title>Video Thumbnail</Title>
-                <Uploader iconPath={GalleryIcon}/>
+                <Uploader>
+                    {
+                        values.imageUrl ? <img style={{width: "100%", height: "100%"}} src={values.imageUrl}/> :
+                        <UploaderBase iconPath={GalleryIcon} onDrop={handleDrop}/>
+                    }
+                </Uploader>
                 <Title>Quantity</Title>
                 <Textfield flexible={true} radius={10} handleInputChange={v => onFormChange?.('quantity', parseInt(v))} type="number" value={values.quantity}></Textfield>
                 <Title>Price</Title>
