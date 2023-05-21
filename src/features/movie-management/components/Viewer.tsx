@@ -6,6 +6,7 @@ import { useRef, useEffect } from 'react';
 type Props = {
     src?: string,
     viewerType?: 'image' | 'movie',
+    onUpdate?: (fileList: FileList) => void,
 }
 
 const ViewerBox = styled.div`
@@ -28,9 +29,10 @@ const ViewerBox = styled.div`
 
 `;
 
-export default function ({src='',  viewerType='image'} : Props) : JSX.Element
+export default function ({src='',  viewerType='image', onUpdate} : Props) : JSX.Element
 {
     const buttonRef = useRef<HTMLButtonElement | null>(null);
+    const inputRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
         if(buttonRef.current) buttonRef.current.style.opacity = '0';
@@ -54,13 +56,22 @@ export default function ({src='',  viewerType='image'} : Props) : JSX.Element
         }
     }
 
+    const handleClick = () => {
+        inputRef.current?.click();
+    }
+
+    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if(e.target.files) onUpdate?.(e.target.files);
+    }
+
     return (
         <ViewerBox onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
             {
                 viewerType === 'image' ?
                 <img src={src} /> : <></>
             }
-            <Button ref={buttonRef} flexible={false}>Update</Button>
+            <input ref={inputRef} type="file" onChange={handleOnChange} hidden/>
+            <Button ref={buttonRef} flexible={false} onClick={handleClick}>Update</Button>
         </ViewerBox>
     )
 }

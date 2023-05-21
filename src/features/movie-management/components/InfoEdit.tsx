@@ -70,11 +70,7 @@ type Props = {
 export default function InfoEdit({onOk, onClose, values, onFormChange, onDelete} : Props) : JSX.Element {
     
 
-    const handleDropImage = (files: FileList) => {
-        onFormChange?.('image', files);
-    }
-
-    const handleAddImage = (files: FileList) => {
+    const handleImageUpdate = (files: FileList) => {
         onFormChange?.('image', files);
     }
 
@@ -92,8 +88,8 @@ export default function InfoEdit({onOk, onClose, values, onFormChange, onDelete}
                 <Title>Video Thumbnail</Title>
                 <Box>
                     {
-                        values.imageUrl ? <Viewer src={values.imageUrl} viewerType="image"/> :
-                        <Uploader iconPath={GalleryIcon} onDrop={handleDropImage} onAdd={handleAddImage}/>
+                        values.imageUrl ? <Viewer src={values.imageUrl} viewerType="image" onUpdate={handleImageUpdate}/> :
+                        <Uploader iconPath={GalleryIcon} onDrop={handleImageUpdate} onAdd={handleImageUpdate}/>
                     }
                 </Box>
                 <Title>Quantity</Title>
