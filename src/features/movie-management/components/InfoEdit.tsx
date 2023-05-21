@@ -5,6 +5,8 @@ import Textfield from "../../../components/Textfield";
 import TextArea from "../../../components/TextArea";
 import Button from "../../../components/Button";
 import { MovieInfo } from "../types";
+import Uploader from "./Uploader";
+import GalleryIcon from '../assets/gallery.png';
 
 const Background = styled.div`
   background-color: white;
@@ -40,16 +42,6 @@ const Title = styled.p`
     color: ${props => props.theme.colors.text};
 `;
 
-const ImageContainer = styled.div`
-    width: 200px;
-    height: 200px;
-    background-color: ${props => props.theme.colors.secondary};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-`;
-
 const ButtonContainer = styled.div`
     display: flex;
     gap: 10px;
@@ -78,9 +70,7 @@ export default function InfoEdit({onOk, onClose, values, onFormChange, onDelete}
                 <Title>Video Description</Title>
                 <TextArea handleChange={v => onFormChange?.('description', v)} value={values.description}></TextArea>
                 <Title>Video Thumbnail</Title>
-                <ImageContainer>
-                    <Title>Click to update</Title>
-                </ImageContainer>
+                <Uploader iconPath={GalleryIcon}/>
                 <Title>Quantity</Title>
                 <Textfield flexible={true} radius={10} handleInputChange={v => onFormChange?.('quantity', parseInt(v))} type="number" value={values.quantity}></Textfield>
                 <Title>Price</Title>
