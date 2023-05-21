@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useRef } from "react";
+import React, { useRef } from "react";
 
 
 const DashedBox = styled.div`
@@ -40,15 +40,16 @@ const DashedBoxContent = styled.div`
 
 type Props = {
     iconPath?: string,
-    onClick?: () => void,
+    onAdd?: (fileList: FileList) => void,
     onDragEnter? : (fileList: FileList) => void,
     onDrop?: (fileList: FileList) => void,
 }
 
-export default function ({iconPath = '', onClick, onDragEnter, onDrop} : Props) : JSX.Element
+export default function ({iconPath = '', onAdd, onDragEnter, onDrop} : Props) : JSX.Element
 {
     const dashesRef = useRef<HTMLDivElement | null>(null);
     const imgRef = useRef<HTMLImageElement | null>(null);
+    const inputRef = useRef<HTMLInputElement | null>(null);
 
     const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
@@ -80,10 +81,18 @@ export default function ({iconPath = '', onClick, onDragEnter, onDrop} : Props) 
         onDrop?.(e.dataTransfer.files);
     }
 
+    const handleClick = () => {
+        inputRef.current?.click();
+    }
+
+    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if(e.target.files) onAdd?.(e.target.files);
+    }
+
     return (
       <DashedBox
         ref={dashesRef}
-        onClick={onClick}
+        onClick={handleClick}
         onDragOver={(e) => {
           e.preventDefault();
         }}
@@ -92,6 +101,7 @@ export default function ({iconPath = '', onClick, onDragEnter, onDrop} : Props) 
         onDrop={(e) => handleOnDrop(e)}
       >
         <DashedBoxContent>
+            <input type="file" ref={inputRef} hidden onChange={(e) => handleOnChange(e)}/>
           <img src={iconPath} alt="" ref={imgRef} width={50} height={50} />
           <p>
             Drop your image here, or <span>click</span>
